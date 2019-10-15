@@ -1,0 +1,140 @@
+Goal
+To create a clone of Tetris on the Arduino Uno connected to a 1 inch monochrome display by reverse engineering an 
+extisting Tetris implementation as a black box.
+
+Glossary
+	Cube - a box that is the atomic element of the game 
+	Tetramino - a contiguous shape made of cubes that fits within a 2 cube by 4 cube rectangle
+  The Grid - a 10 cube wide by 20 cube high playfield of cubes that each can be Active or Inactive
+  The Frame - a box around the game grid
+
+
+Requirements
+
+1 Control
+
+	1.1 Buttons
+	
+		1.1.1 - Button input shall be debounced
+			TBD timing
+			
+		1.1.2 - There shall be five buttons
+			Move Right
+			Move Left
+			Rotate
+			Move Down
+			Drop
+			
+	  1.1.2.1 - All buttons shall be pulled to an open state when not pressed
+	  1.1.2.1 - All buttons actions shall occur within TBD ms of button activation
+		
+		1.1.3 - When the Move Right button is pressed the tetramino shall begin shifting right 
+		1.1.3.1 - When the Move Right button is released the tetramino shall stop shifting right
+		
+		1.1.4 - When the Move Left button is pressed the tetramino shall begin shifting left 
+		1.1.4.1 - When the Move Left button is released the tetramino shall stop shifting left	
+			
+		1.1.4 - Each time the Rotate button is pressed the tetramino shall rotate 90 degrees counterclockwise
+		 
+		1.1.5 - When the Move Down button is pressed the tetramino fall rate shall increase to Accelerated Drop 
+		1.1.5.1 - When the Move Down button is is released the tetramino fall rate shall decrease to Normal Drop
+		
+		1.1.6 - When the Drop button is pressed the tetramino shall shift downwards until a collision is detected
+
+
+2 Display
+
+3 Game
+
+  3.1 Game Elements
+  
+  	3.1.1 - The following tetraminos shall be supported:
+  		(* represents an active cube, - represents inactive)
+  	3.1.1.1	- Zig: -**-
+  							 	 --** 
+  				
+  	3.1.1.2 - Zag: --**
+  								 -**-
+  								 
+    3.1.1.3 - Tee: -***
+  								 --*-
+  								 
+  	3.1.1.4 - Square: --**
+  								    --**
+  	
+   	3.1.1.5 - Left-L: -***
+  								    ---* 	
+  	
+  	3.1.1.6 - Right-L: ---*
+  								     -***  	
+  								     
+  	3.1.1.7 - TheFinisher: ****
+  								         ----  								     							
+		
+		3.1.2 - The Game Grid shall be 10 cubes wide and 20 cubes high
+		
+		3.1.3 - A tetramino shall have two states: Falling and Stopped
+		
+	3.2 Movement
+	
+		3.2.1 - When a tetramino is shifting it shall stop if a collision is detected
+		3.2.2 - A collision shall be detected if any active cube in a tetramino would overlap another active cube or would leave the game grid
+		
+	3.3 Gameplay
+	
+		3.3.1 - When the game is Running and no Next Tetramino is displayed a Tetramino shall be chosen randomly from those supported and displayed
+		
+		3.3.2 - When the game is Running and no Tetramino is falling the Next Tetramino shall be created at the top of the grid and begin falling
+		3.3.2.1 - When a new Tetramino begins falling the Next Tetramino shall be cleared
+		
+		3.3.3 - When a collision is detected a Tetramino shall stop moving in that direction
+		
+		3.3.4 - When an uninterrupted line of 10 cubes in Stopped tetraminos across any row is detected that row shall be Completed
+		3.3.5 - A Completed row shall be flashed once and then removed
+		3.3.6 - If more than one row is detected as Completed at once they all shall be removed simultaniously
+		3.3.7 - When an stopped row is removed, all above cubes shall fall one row
+		
+		3.3.7 Scoring
+		
+			3.3.7.1 - When a row is completed the Score shall increase by the equation 10x + 5b where x is the current Difficulty Level and b is the 
+								current Bonus Level 
+								
+			3.3.7.2 - When more than one row is Completed simultaniously the Bonus Level will be set to the number of rows completed
+			3.3.7.2 - When a single row is completed the Bonus Level will be set to 0
+			
+		3.3.8 - Difficulty 
+		
+			3.3.8.1 - When the game is reset the Difficulty Level will be set to 1
+			3.3.8.2 - When the following number of rows have been completed the Difficulty Level will increment
+								DL: - New Rows:
+								1 - 15
+								2 - 30
+								3 - 55
+								4 - 70
+								5 - 80
+								6 - 255
+								
+								TBD - add manual difficulty setting
+								
+		 3.3.8.3 - If the Difficulty Level is 7 the game is Won
+		 
+
+//****************************************************************************//		
+
+Design details:
+
+	Will have classes for:
+		Buttons
+		
+  Display will use a current/previous gameboard buffer to detect changes to minimize graphics commands
+  
+		  
+								
+								
+								
+								
+								
+						
+						
+						
+						
