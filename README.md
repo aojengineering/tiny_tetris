@@ -8,5 +8,5 @@ Since Tetris is a problem that has been solved (many times) I approached this as
 Hardware used was a custom 5 button setup connected to a Arduino Uno and displayed on a 1 inch feature phone screen.
 
 About me:
-  An experienced embedded developer who has performed full lifecycle development on a wide variety of safety-critical embedded applications for avionics, rail and agricultural machinery.  The Arduino is certainly a faster setup than other micros I have coded on!
-  -Andrew O. Jones
+  An experienced embedded developer who has performed full lifecycle development on a wide variety of safety-critical embedded applications for avionics, rail and agricultural machinery.  Mostly working in C, C++, ADA etc. and a variety of scripting languages for automated testing.  The Arduino is certainly a faster setup than other micros I have coded on!
+  -Andrew O. Jones 
